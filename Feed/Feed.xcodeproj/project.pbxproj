@@ -19,6 +19,7 @@
 /* Begin PBXFileReference section */
 		B2116FE22EAACA7D006DBE01 /* Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2116FEF2EAACA80006DBE01 /* FeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2F788822EAD95010002E10C /* Feed.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Feed.xctestplan; path = FeedTests/Feed.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -69,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				B2116FE42EAACA7D006DBE01 /* Feed */,
+				B2F788822EAD95010002E10C /* Feed.xctestplan */,
 				B2116FF22EAACA80006DBE01 /* FeedTests */,
 				B2116FE32EAACA7D006DBE01 /* Products */,
 			);
