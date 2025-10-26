@@ -2,7 +2,7 @@
 //  VideoPlayerManagerProtocol.swift
 //  Feed
 //
-//  Created by Parth on 2025-10-25.
+//  Created by Parth Thakkar on 2025-10-25.
 //
 
 import AVFoundation

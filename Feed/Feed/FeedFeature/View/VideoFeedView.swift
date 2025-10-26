@@ -10,7 +10,10 @@ import SwiftUI
 struct VideoFeedView: View {
   @StateObject var presenter: VideoFeedPresenter
   @State private var currentIndex: Int? = 0
+  @State private var isAnyInputFocused: Bool = false
   
+  @ObservedObject private var lifecycleManager = AppLifecycleManager.shared
+
   var body: some View {
     ZStack {
       Color.black.ignoresSafeArea()
@@ -37,13 +40,14 @@ struct VideoFeedView: View {
               VideoPlayerView(
                 video: video,
                 isVisible: currentIndex == index,
+                isAnyInputFocused: $isAnyInputFocused,
                 playerManager: DIContainer.shared.videoPlayerManager
               )
               .frame(
                 width: geometry.size.width,
                 height: geometry.size.height
               )
-              .containerRelativeFrame(.vertical)  // ✅ KEY: Full screen height
+              .containerRelativeFrame(.vertical)
               .id(index)
             }
           }
@@ -51,7 +55,11 @@ struct VideoFeedView: View {
         }
         .scrollTargetBehavior(.paging)
         .scrollPosition(id: $currentIndex)
-        .onChange(of: currentIndex) { _, newIndex in
+        .onChange(of: currentIndex) { oldValue, newIndex in
+          if let oldValue = oldValue, let newIndex = newIndex, oldValue != newIndex, isAnyInputFocused {
+            isAnyInputFocused = false
+          }
+          
           guard let newIndex = newIndex, newIndex < presenter.videos.count else { return }
           presenter.onVideoAppear(index: newIndex, video: presenter.videos[newIndex])
         }
@@ -100,6 +108,16 @@ struct VideoFeedView: View {
           .padding(.vertical, 12)
           .background(Color.white)
           .cornerRadius(25)
+      }
+    }
+  }
+  
+  // MARK: - Lifecycle Handler
+  
+  private func handleAppLifecycleChange(_ isActive: Bool) {
+    if !isActive {
+      if isAnyInputFocused {
+        isAnyInputFocused = false
       }
     }
   }
